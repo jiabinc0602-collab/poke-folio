@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from api_service import search_card_by_name
 app = Flask(__name__)
 
 @app.route('/')
@@ -7,9 +8,10 @@ def index():
 
 @app.route('/search', methods =['GET'])
 def search():
-    card_name = request.args.get('name')
+    card_name = request.args.get('card_name')
     print(f"Searching for card: {card_name}")
-    return f"You searched for the card: {card_name}"
+    card_data = search_card_by_name(card_name)
+    return render_template('results.html', card = card_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

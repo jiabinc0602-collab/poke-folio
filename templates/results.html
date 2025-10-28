@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Card</title>
+    </head>
+    <body>
+        {% if card %}
+            <h1>{{ card.name }}</h1>
+            <img src="{{ card.images.small }}" alt="{{ card.name}}">
+            <p>Market Price (Holofoil): ${{ card.tcgplayer.prices.holofoil.market }}</p>
+        {% else %}
+            <h2>No card found with that name.</h2>
+        {% endif %}
+    </body>
+</html>
