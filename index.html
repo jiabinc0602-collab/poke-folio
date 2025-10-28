@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeFolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<body>
+    <h1>Search for a Pokemon Card</h1>
+    <form action="/search" method="get">
+        <label for="card_name">Enter Card Name:</label>
+        <input type="text" id="card_name" name="card_name"placeholder="Enter card name...">
+        <button id="submit" type="submit" class="button">Search</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeFolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <a href="/" class="nav-link-accent">HOME</a>
+            <a href="/portfolio" class="nav-link-accent">MY PORTFOLIO</a>
+            <a href="/market" class="nav-link-accent">MARKET</a>
+            <a href="/sets" class="nav-link-accent">SETS</a>
+            <a href="/contact" class="nav-link-accent">CONTACT US</a>
+        </nav>
+    </header>
+    
+    <div class="main-content">
+        <h1>Search for a Pokemon Card</h1>
+        <form action="/search" method="get" class="accent">
+            <label for="card_name" class="accent">Enter Card Name:</label>
+            <input type="text" id="card_name" name="card_name" placeholder="Enter card name...">
+            <button id="submit" type="submit" class="search accent">Search</button>
+        </form>
+    </div>
+</body>
+</html>

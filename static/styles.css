@@ -1,0 +1,79 @@
+body{
+    text-align: center;
+    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height:1.6;
+    min-height:100vh;
+    margin:0;
+}
+.main-content{
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+form{
+    flex-direction:column;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    border: 2px solid white;
+    display: inline-block;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+}
+h1 {
+    color: #007bff;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+#submit{
+    background-color: #007bff;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button:hover{
+    background-color: #0056b3; 
+}
+.accent{
+    color: #007bff;
+}
+#card_name{
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-size: 18px;
+    width: 300px;
+}
+header{
+    background-color: #007bff;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+#nav-link-accent{
+    color:#000000;
+    border-radius: 5px;
+}
