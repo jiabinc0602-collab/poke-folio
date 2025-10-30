@@ -12,7 +12,7 @@ def search_card_by_name(name):
         "q": f'name:"{name}"'
     }
     try:
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         response.raise_for_status()
 
         data = response.json()
@@ -26,5 +26,23 @@ def search_card_by_name(name):
         print(f"API request failed:{e}")
         return None
 
-    
-    
+def get_cards_by_page(page_number):
+    params = {
+        "page": page_number,
+        "pageSize": 250
+    }
+    try: 
+        response = requests.get(url, headers = headers, params=params)
+        response.raise_for_status()
+        
+        return response.json()
+    except requests.exceptions.HTTPError as e:
+        if requests.exceptions.HTTPError == 404:
+            print("API: Reached end of data (404)")
+            return "STOP"
+        else:
+            print(f"API request failed: {e}")
+            return None
+    except requests.exceptions.RequestException as e:
+        print(f"API request failed: {e}")
+        return None
