@@ -37,7 +37,7 @@ def get_cards_by_page(page_number):
         
         return response.json()
     except requests.exceptions.HTTPError as e:
-        if requests.exceptions.HTTPError == 404:
+        if e.response.status_code == 404:
             print("API: Reached end of data (404)")
             return "STOP"
         else:

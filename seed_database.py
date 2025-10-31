@@ -9,11 +9,12 @@ setup_database()
 while (total_fetched < total_count):
     data = get_cards_by_page(page_num)
 
-    if not data:
+    if data == "STOP":
+        break 
+    elif not data:
         print(f"Failed to get page {page_num}, retrying in 5 seconds...")
         time.sleep(5)
         continue
-    
     results = data.get('data')
 
     total_count = data.get('totalCount')

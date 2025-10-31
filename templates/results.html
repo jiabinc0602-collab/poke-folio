@@ -3,12 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>Your Card</title>
+        <link rel = "stylesheet" href ="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         {% if card %}
             <h1>{{ card.name }}</h1>
-            <img src="{{ card.images.small }}" alt="{{ card.name}}">
-            <p>Market Price (Holofoil): ${{ card.tcgplayer.prices.holofoil.market }}</p>
+            <img src="{{ card.image_url }}" alt="{{ card.card_name }}">
+            <p>Market Price ({{card.price_type}}): ${{ card.market_price }}</p>
         {% else %}
             <h2>No card found with that name.</h2>
         {% endif %}
