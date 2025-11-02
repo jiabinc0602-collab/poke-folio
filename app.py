@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from api_service import search_card_by_name
-from db_service import search_card_in_db
+from db_service import search_card_in_db, get_all_sets_from_db
+
 
 app = Flask(__name__)
 
@@ -17,3 +18,8 @@ def search():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+@app.route('/sets')
+def setsIndex():
+    all_sets = get_all_sets_from_db()
+    return render_template('sets.html', set_list = all_sets)

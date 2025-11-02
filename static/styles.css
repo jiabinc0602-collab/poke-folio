@@ -77,3 +77,21 @@ nav a{
     color:#000000;
     border-radius: 5px;
 }
+.set-grid ul{
+    list-style-type:none;
+}
+.set-grid li{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.set-grid img{
+    width:100px;
+    height:50px;
+    object-fit:contain;
+}
+#nav-link-accent{
+    color:#000000;
+    border-radius: 5px;
+}

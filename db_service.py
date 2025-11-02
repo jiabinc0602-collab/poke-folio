@@ -14,6 +14,13 @@ def setup_database():
                    price_type TEXT NOT NULL
                    )
     ''')
+    cursor.execute('''
+            CREATE TABLE IF NOT EXISTS cardSets (
+                   setId TEXT PRIMARY KEY,
+                   setName TEXT NOT NULL,
+                   setImage_url TEXT
+                   )
+    ''')
     conn.commit()
     conn.close()
 
@@ -62,6 +69,25 @@ def insert_card(card_data):
     finally:
         conn.close()
 
+def insert_set(set_data):
+    conn = sqlite3.connect('pokefolio.db')
+    cursor = conn.cursor()
+    set_id = set_data.get('id')
+    set_name = set_data.get('name')
+    set_image_url = set_data.get('images', {}).get('logo')
+    pulled = (
+        set_id,
+        set_name,
+        set_image_url
+    )
+    try:
+        cursor.execute("INSERT OR IGNORE INTO cardSets(setId, setName, setImage_url) VALUES (?,?,?)", pulled)
+        conn.commit()
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+    finally:
+        conn.close()
+
 def search_card_in_db(card_name):
     conn = sqlite3.connect('pokefolio.db')
     conn.row_factory = sqlite3.Row
@@ -73,3 +99,14 @@ def search_card_in_db(card_name):
     row = cursor.fetchone()
     conn.close()
     return row
+
+def get_all_sets_from_db():
+    conn = sqlite3.connect('pokefolio.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    sql_query = "SELECT * FROM cardSets"
+    cursor.execute(sql_query)
+    rows = cursor.fetchall()
+    conn.close()
+    return rows

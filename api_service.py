@@ -1,6 +1,7 @@
 import requests
 
 url = "https://api.pokemontcg.io/v2/cards"
+set_url = "https://api.pokemontcg.io/v2/sets"
 API_KEY = "0336902f-9595-4a3d-8d12-115c9d4619f1"
 headers = {
     "X-Api-Key": API_KEY
@@ -43,6 +44,15 @@ def get_cards_by_page(page_number):
         else:
             print(f"API request failed: {e}")
             return None
+    except requests.exceptions.RequestException as e:
+        print(f"API request failed: {e}")
+        return None
+
+def get_all_sets():
+    try: 
+        response = requests.get(set_url, headers = headers)
+        response.raise_for_status()
+        return response.json()
     except requests.exceptions.RequestException as e:
         print(f"API request failed: {e}")
         return None

@@ -1,0 +1,21 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SETS</title>
+        <link rel = "stylesheet" href ="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div class="set-grid">
+        {% if set_list %}
+            <ul>
+            {% for set in set_list %}
+                <li>
+                    {{ set.setName }}
+                    <img src = "{{ set.setImage_url }}" alt = "{{ set.setName }}">
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    </body>
+</html>
