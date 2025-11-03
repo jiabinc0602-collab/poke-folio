@@ -6,7 +6,6 @@ page_num = 1
 total_fetched = 0
 total_count = 1
 setup_database()
-"""
 while (total_fetched < total_count):
     data = get_cards_by_page(page_num)
 
@@ -27,7 +26,7 @@ while (total_fetched < total_count):
     total_fetched += len(results)
 
     time.sleep(1)
-"""
+
 sets_data = None
 max_retries = 3
 for attempt in range(max_retries):

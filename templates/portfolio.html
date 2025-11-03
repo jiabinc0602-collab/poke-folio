@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta >
+        <title>
+            My Pokemon Portfolio
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div class="portfolio">
+            <h1>Total Portfolio Value: ${{ total_value }} </h1>
+            {% for card in collection %}
+                <div class="portfolio-card">
+                    <h2>{{ card.name }}</h2>
+                    <img src="{{ card.image_url }}" alt="{{ card.name }}">
+                    <p>Price ({{ card.price_type }}): ${{ card.market_price }}</p>
+
+                    <p>Subtotal: ${{ card.subtotal|round(2) }}</p> 
+
+                    <form action="{{ url_for('update_quantity') }}" method="post">
+                        <input type="hidden" name="card_id" value="{{ card.cardID }}"> 
+                        
+                        <input type="number" name="quantity" value="{{ card.quantity }}" min="0" required>
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

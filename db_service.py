@@ -21,6 +21,14 @@ def setup_database():
                    setImage_url TEXT
                    )
     ''')
+    cursor.execute('''
+            CREATE TABLE IF NOT EXISTS userCollection (
+                   cardID TEXT PRIMARY KEY,
+                   quantity INT NOT NULL,
+                   purchasePrice REAL,
+                   FOREIGN KEY (cardID) REFERENCES cardData (id)
+                   )
+    ''')
     conn.commit()
     conn.close()
 
@@ -110,3 +118,67 @@ def get_all_sets_from_db():
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+def add_card_to_portfolio(card_id, quantity, price):
+    conn = sqlite3.connect('pokefolio.db')
+    cursor = conn.cursor()
+    pulled = (
+        card_id,
+        quantity,
+        price
+    )
+    try:
+        cursor.execute("INSERT OR IGNORE INTO userCollection(cardID, quantity, purchasePrice) VALUES (?,?, ?)", pulled)
+        conn.commit()
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+    finally:
+        conn.close()
+
+def get_card_details_for_portfolio(card_id):
+    conn = sqlite3.connect('pokefolio.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    sql_query = "SELECT market_price, price_type FROM cardData WHERE id = ?"
+    cursor.execute(sql_query, (card_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return row
+
+def get_all_portfolio_cards():
+    conn = sqlite3.connect('pokefolio.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    sql_query = """
+        SELECT 
+            c.*, 
+            cd.*, 
+            (c.quantity * cd.market_price) AS subtotal 
+        FROM userCollection AS c 
+        JOIN cardData AS cd ON c.cardID = cd.id
+    """
+    cursor.execute(sql_query)
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+def update_card_quantity(card_id, new_quantity):
+    conn = sqlite3.connect('pokefolio.db')
+    cursor = conn.cursor()
+    
+    try:
+        if new_quantity <= 0:
+            sql_query = "DELETE FROM userCollection WHERE cardID = ?"
+            cursor.execute(sql_query, (card_id,))
+            print(f"Deleted card {card_id} from portfolio.")
+        else:
+            sql_query = "UPDATE userCollection SET quantity = ? WHERE cardID = ?"
+            cursor.execute(sql_query, (new_quantity, card_id))
+        
+        conn.commit()
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+    finally:
+        conn.close()

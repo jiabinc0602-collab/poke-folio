@@ -10,6 +10,9 @@
             <h1>{{ card.name }}</h1>
             <img src="{{ card.image_url }}" alt="{{ card.card_name }}">
             <p>Market Price ({{card.price_type}}): ${{ card.market_price }}</p>
+            <a href="{{ url_for('add_to_portfolio', card_id = card.id) }}" class = "add-button">
+                Add to Portfolio
+            </a>
         {% else %}
             <h2>No card found with that name.</h2>
         {% endif %}
